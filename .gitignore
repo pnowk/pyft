@@ -1,0 +1,6 @@
+/app/__pycache__
+/venv
+/.vscode
+/__pycache__
+/test/__pycache__
+/migrations/__pycache__
