@@ -7,7 +7,7 @@ class Config:
   ENV='debug'
   DEBUG=True
   TESTING=True
-  PORT=33507
+  PORT=80 #33507
   SECRET_KEY = os.environ.get('SECRET_KEY') or 'secretkeytomyapp'
   SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
       'sqlite:///'+os.path.join(basedir, 'data.db')
