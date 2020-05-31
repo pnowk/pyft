@@ -37,3 +37,16 @@ flask db migrate
 python manage.py db upgrade
 
 ```
+
+
+
+## Heroku
+
+### push local branch to heroku master
+
+git push heroku base:refs/heads/master
+
+
+### heroku config
+heroku config:set HOST=0.0.0.0 
+heroku config:set PORT=33507
