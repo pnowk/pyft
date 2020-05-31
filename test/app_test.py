@@ -1,26 +1,31 @@
-from application import *
-#from app import *
-from flask import json, jsonify
-import pytest
+import unittest
+import os
+import json
 
+from app import create_app, db
 
-def test_index():
-  with app.test_client() as c:
-    resp=c.get('/index')
-    assert b'app.db' in resp.data
-    
-def test_login():
-  u=models.User(username='piotr', email='piotr@mail.com')
-  return app.test_client().post('/login', data=dict(username=u.username, email=u.email ), follow_redirects=True)
-  
+class BucketlistTestCase(unittest.TestCase):
+  def setUp(self):
+    self.app = create_app(config_name='test')
+    self.client=self.app.test_client
+    self.bucketlist= {'name':'got for a long holiday'}
 
-def test_logout():
-  with app.test_client() as c:
-    return c.get('/logout', follow_redirects=True)
+    with self.app.app_context():
+      db.create_all()
 
+  def test_index(self):
+    res = self.client().get('/')
+    self.assertEqual(res.status_code==200)
 
-def test_404():
-  with app.test_client() as c:
-    resp = c.get('/nonexisting')
-    assert resp.status_code == 404
-    
+  def test_bucketlist_creation(self):
+    res = self.client().post('/bucketlist/', data=self.bucketlist)
+    self.assertEqual(res.status_code, 201)
+    self.assertIn('holiday', str(res.data))
+
+  def tearDown(self):
+    with self.app.app_context():
+      db.session.remove()
+      db.drop_all()
+
+if __name__=="__main__":
+  unittest.main()

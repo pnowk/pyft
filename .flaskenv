@@ -1,0 +1,2 @@
+APPENV=test
+
