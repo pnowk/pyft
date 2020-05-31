@@ -1,1 +1,1 @@
-web: python manage.py runserver 0.0.0.0:33507
+web: python manage.py runserver
