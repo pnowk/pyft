@@ -50,3 +50,8 @@ git push heroku base:refs/heads/master
 ### heroku config
 heroku config:set HOST=0.0.0.0 
 heroku config:set PORT=33507
+
+
+### procfile
+
+web: python manage.py runserver -h 0.0.0.0 -p 33507
